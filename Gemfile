@@ -6,4 +6,7 @@ group :development do
   gem "rspec"
   gem "bundler"
   gem "jeweler"
+  gem "sqlite3", :platforms => :ruby
+  gem "activerecord-jdbcsqlite3-adapter", :platforms => :jruby
+  gem "activesupport"
 end
