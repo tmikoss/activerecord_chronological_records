@@ -1,4 +1,4 @@
-# activerecord_chronological_records
+# activerecord_chronological_records [![Build Status](https://secure.travis-ci.org/tmikoss/activerecord_chronological_records.png)](http://travis-ci.org/tmikoss/activerecord_chronological_records)
 
 Provides a set of helper methods for dealing with chronological records that have common primary key and date columns denoting when the record is active (example: Oracle EBS tables).
 
