@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Toms Mikoss"]
   s.date = "2012-11-12"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Provides a set of helper methods for dealing with chronological records that have common primary key and date columns denoting when the record is active (example: Oracle EBS tables)."
   s.email = "toms.mikoss@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "activerecord_chronological_records.gemspec",
     "lib/activerecord_chronological_records.rb",
     "spec/activerecord_chronological_records_spec.rb",
     "spec/spec_helper.rb"
@@ -33,7 +34,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "Provides a set of helper methods for dealing with chronological records."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
