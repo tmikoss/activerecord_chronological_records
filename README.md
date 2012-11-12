@@ -44,7 +44,7 @@ Additonally, following helper methods are available:
 
 Add the following line to your `Gemfile`
 
-    gem "automagical_validations"
+    gem 'activerecord_chronological_records'
 
 and run the `bundle install` command.
 
