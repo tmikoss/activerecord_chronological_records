@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "activerecord_chronological_records"
   gem.homepage = "http://github.com/tmikoss/activerecord_chronological_records"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Provides a set of helper methods for dealing with chronological records.}
+  gem.description = %Q{Provides a set of helper methods for dealing with chronological records that have common primary key and date columns denoting when the record is active (example: Oracle EBS tables).}
   gem.email = "toms.mikoss@gmail.com"
   gem.authors = ["Toms Mikoss"]
   # dependencies defined in Gemfile
