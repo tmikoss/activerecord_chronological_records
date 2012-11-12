@@ -14,6 +14,8 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Employee < ActiveRecord::Base
+  self.primary_key = :id
+
   def self.rebuild_table
     ActiveRecord::Schema.define do
       self.verbose = false

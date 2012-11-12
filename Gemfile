@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "activerecord", ">= 3.0.0"
+gem "activerecord",  ">= 3.0.0"
 
 group :development do
   gem "rspec"
@@ -8,5 +8,4 @@ group :development do
   gem "jeweler"
   gem "sqlite3", :platforms => :ruby
   gem "activerecord-jdbcsqlite3-adapter", :platforms => :jruby
-  gem "activesupport"
 end

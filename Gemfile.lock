@@ -44,7 +44,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord (>= 3.0.0)
   activerecord-jdbcsqlite3-adapter
-  activesupport
   bundler
   jeweler
   rspec
