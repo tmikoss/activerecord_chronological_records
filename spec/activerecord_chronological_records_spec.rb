@@ -38,9 +38,9 @@ describe "ActiverecordChronologicalRecords" do
   context "When start and end dates are present" do
     before(:all) do
       Employee.destroy_all
-      @first_record   = make_employee(start_date: Date.today - 1.year, end_date: Date.today - 1.month - 1.day)
-      @current_record = make_employee(start_date: Date.today - 1.month, end_date: Date.today + 1.month)
-      @last_record    = make_employee(start_date: Date.today + 1.month + 1.day, end_date: Date.today + 1.year)
+      @first_record   = make_employee(:start_date => Date.today - 1.year, :end_date => Date.today - 1.month - 1.day)
+      @current_record = make_employee(:start_date => Date.today - 1.month, :end_date => Date.today + 1.month)
+      @last_record    = make_employee(:start_date => Date.today + 1.month + 1.day, :end_date => Date.today + 1.year)
     end
 
     include_examples "scopes"
@@ -51,9 +51,9 @@ describe "ActiverecordChronologicalRecords" do
   context "When last record does not have end date" do
     before(:all) do
       Employee.destroy_all
-      @first_record   = make_employee(start_date: Date.today - 1.year, end_date: Date.today - 1.month - 1.day)
-      @current_record = make_employee(start_date: Date.today - 1.month, end_date: Date.today + 1.month)
-      @last_record    = make_employee(start_date: Date.today + 1.month + 1.day, end_date: nil)
+      @first_record   = make_employee(:start_date => Date.today - 1.year, :end_date => Date.today - 1.month - 1.day)
+      @current_record = make_employee(:start_date => Date.today - 1.month, :end_date => Date.today + 1.month)
+      @last_record    = make_employee(:start_date => Date.today + 1.month + 1.day, :end_date => nil)
     end
 
     include_examples "scopes"
