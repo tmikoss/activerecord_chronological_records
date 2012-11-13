@@ -13,17 +13,31 @@ ActiveRecord::Base.establish_connection(
   :database => "#{File.dirname(__FILE__)}/activerecord_chronological_records.db"
 )
 
-class Employee < ActiveRecord::Base
-  self.primary_key = :id
+ActiveRecord::Schema.define do
+  self.verbose = false
 
-  def self.rebuild_table
-    ActiveRecord::Schema.define do
-      self.verbose = false
+  create_table :projects, :force => true do |t|
+    t.string :name
+    t.date :start_date
+    t.date :end_date
+  end
 
-      create_table :employees, :force => true, :id => false do |t|
-        t.integer :id
-        yield t
-      end
-    end
+  create_table :employees, :force => true, :id => false do |t|
+    t.integer :id
+    t.references :project
+    t.date :start_date
+    t.date :end_date
   end
 end
+
+class Employee < ActiveRecord::Base
+  belongs_to :project
+  self.primary_key = :id
+
+  has_chronological_records
+end
+
+class Project < ActiveRecord::Base
+  has_many :employees
+end
+
