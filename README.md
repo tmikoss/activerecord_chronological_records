@@ -23,14 +23,14 @@ This will assume you have `start_date` and `end_date` columns on the model. To c
 Following scopes are defined at class level that return all records matching specific condition:
 
 * `Class.current` - records valid at current date
-* `Class.at(date)` - records valid at given date
+* `Class.effective_at(date)` - records valid at given date
 
 ### Instance methods
 
 Following instance methods are defined for navigation between versions or record. Can return nil if no version matches the condition.
 
 * `instance.current` - version of instance valid at current date
-* `instance.at(date)` - version of instance valid at given date
+* `instance.effective_at(date)` - version of instance valid at given date
 * `instance.earliest` - first version of record
 * `instance.latest` - last version of record
 * `instance.previous` - version before the one method is being called on

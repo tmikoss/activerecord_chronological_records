@@ -7,22 +7,22 @@ module ActiverecordChronologicalRecords
     end
 
     self.instance_eval <<-EOS
-      def at(date)
+      def effective_at(date)
         where("(#{start_column} <= :date OR #{start_column} IS NULL) AND (#{end_column} >= :date OR #{end_column} IS NULL)", :date => date)
       end
 
       def current
-        at(Time.now)
+        effective_at(Time.now)
       end
 EOS
 
     self.class_eval <<-EOS
-      def at(date)
-        #{self}.at(date).where(:#{primary_key} => self.#{primary_key}).first
+      def effective_at(date)
+        #{self}.effective_at(date).where(:#{primary_key} => self.#{primary_key}).first
       end
 
       def current
-        at(Time.now)
+        effective_at(Time.now)
       end
 
       def current?
@@ -38,11 +38,11 @@ EOS
       end
 
       def previous
-        at(#{start_column} - 1.day)
+        effective_at(#{start_column} - 1.day)
       end
 
       def next
-        at(#{end_column} + 1.day)
+        effective_at(#{end_column} + 1.day)
       end
 EOS
   end

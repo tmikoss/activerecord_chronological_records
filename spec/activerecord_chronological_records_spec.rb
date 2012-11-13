@@ -16,14 +16,14 @@ describe "ActiverecordChronologicalRecords" do
 
   shared_examples "scopes" do
     specify { Employee.current.all.should eq [@current_record] }
-    specify { Employee.at(Date.today).all.should eq [@current_record] }
-    specify { Employee.at(Date.today - 2.months).all.should eq [@first_record] }
-    specify { Employee.at(Date.today + 2.months).all.should eq [@last_record] }
+    specify { Employee.effective_at(Date.today).all.should eq [@current_record] }
+    specify { Employee.effective_at(Date.today - 2.months).all.should eq [@first_record] }
+    specify { Employee.effective_at(Date.today + 2.months).all.should eq [@last_record] }
   end
 
   shared_examples "navigation methods" do
     specify { @first_record.current.should eq @current_record }
-    specify { @first_record.at(Date.today).should eq @current_record }
+    specify { @first_record.effective_at(Date.today).should eq @current_record }
     specify { @current_record.earliest.should eq @first_record }
     specify { @current_record.latest.should eq @last_record }
     specify { @current_record.previous.should eq @first_record }
