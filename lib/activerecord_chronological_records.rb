@@ -8,7 +8,7 @@ module ActiverecordChronologicalRecords
 
     self.instance_eval <<-EOS
       def at(date)
-        where("#{start_column} <= :date AND (#{end_column} >= :date OR #{end_column} IS NULL)", :date => date)
+        where("(#{start_column} <= :date OR #{start_column} IS NULL) AND (#{end_column} >= :date OR #{end_column} IS NULL)", :date => date)
       end
 
       def current
@@ -26,7 +26,7 @@ EOS
       end
 
       def current?
-        #{start_column}.to_time <= Time.now && #{end_column}.to_time >= Time.now
+        (#{start_column}.blank? || #{start_column}.to_time <= Time.now) && (#{end_column}.blank? || #{end_column}.to_time >= Time.now)
       end
 
       def earliest
