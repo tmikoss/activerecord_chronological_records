@@ -17,7 +17,6 @@ ActiveRecord::Schema.define do
   self.verbose = false
 
   create_table :projects, :force => true do |t|
-    t.string :name
     t.date :start_date
     t.date :end_date
   end
@@ -28,16 +27,32 @@ ActiveRecord::Schema.define do
     t.date :start_date
     t.date :end_date
   end
-end
 
-class Employee < ActiveRecord::Base
-  belongs_to :project
-  self.primary_key = :id
-
-  has_chronological_records
+  create_table :moods, :force => true, :id => false do |t|
+    t.integer :id
+    t.references :employee
+    t.datetime :start_time
+    t.datetime :end_time
+  end
 end
 
 class Project < ActiveRecord::Base
   has_many :employees
 end
 
+class Employee < ActiveRecord::Base
+  self.primary_key = :id
+
+  belongs_to :project
+  has_many :moods
+
+  has_chronological_records
+end
+
+class Mood < ActiveRecord::Base
+  self.primary_key = :id
+
+  belongs_to :employee
+
+  has_chronological_records :start_time, :end_time
+end

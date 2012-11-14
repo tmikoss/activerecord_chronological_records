@@ -6,13 +6,15 @@ module ActiverecordChronologicalRecords
       start_column, end_column = options[0], options[1]
     end
 
+    dealing_with_dates = columns.select{|c| [start_column, end_column].map(&:to_s).include? c.name}.all?{|c| c.type == :date}
+
     query_start_column = "#{table_name}.#{start_column}"
     query_end_column   = "#{table_name}.#{end_column}"
     same_record_lookup = "#{self}.where(:#{primary_key} => self.#{primary_key})"
 
     self.instance_eval <<-EOS
       def effective_at(date)
-        where("(#{query_start_column} <= :date OR #{query_start_column} IS NULL) AND (#{query_end_column} >= :date OR #{query_end_column} IS NULL)", :date => date)
+        where("(#{query_start_column} <= :date OR #{query_start_column} IS NULL) AND (#{query_end_column} >= :date OR #{query_end_column} IS NULL)", :date => #{dealing_with_dates ? 'date.to_date' : 'date'})
       end
 
       def current

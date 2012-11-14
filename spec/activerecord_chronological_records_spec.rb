@@ -30,7 +30,7 @@ describe ActiverecordChronologicalRecords do
 
   context "When start and end dates are present" do
     before(:all) do
-      Employee.destroy_all
+      Employee.delete_all
       @first_record   = make_employee(:start_date => Date.today - 1.year, :end_date => Date.today - 1.month - 1.day)
       @current_record = make_employee(:start_date => Date.today - 1.month, :end_date => Date.today + 1.month)
       @last_record    = make_employee(:start_date => Date.today + 1.month + 1.day, :end_date => Date.today + 1.year)
@@ -45,7 +45,7 @@ describe ActiverecordChronologicalRecords do
 
   context "When last record does not have end date" do
     before(:all) do
-      Employee.destroy_all
+      Employee.delete_all
       @first_record   = make_employee(:start_date => Date.today - 1.year, :end_date => Date.today - 1.month - 1.day)
       @current_record = make_employee(:start_date => Date.today - 1.month, :end_date => Date.today + 1.month)
       @last_record    = make_employee(:start_date => Date.today + 1.month + 1.day, :end_date => nil)
@@ -58,10 +58,10 @@ describe ActiverecordChronologicalRecords do
 
   context "when used in join and colums with same name are defined on both tables" do
     before(:all) do
-      Project.destroy_all
-      Employee.destroy_all
+      Project.delete_all
+      Employee.delete_all
 
-      @project = Project.create(:name => "Project")
+      @project = Project.create
 
       @first_record   = make_employee(:project => @project, :start_date => Date.today - 1.year, :end_date => Date.today - 1.month - 1.day)
       @current_record = make_employee(:project => @project, :start_date => Date.today - 1.month, :end_date => Date.today + 1.month)
@@ -70,5 +70,24 @@ describe ActiverecordChronologicalRecords do
     specify { expect { @project.employees.current.all }.not_to raise_error }
     specify { Employee.joins(:project).current.should eq [@current_record] }
     specify { Employee.joins(:project).effective_at(Date.today - 2.months).should eq [@first_record] }
+  end
+
+  context "dealing with inclusion" do
+    before do
+      Employee.delete_all
+      Mood.delete_all
+    end
+
+    it "when end_date is date, current scope should include records that end today" do
+      employee = make_employee(:start_date => Date.today - 1.day, :end_date => Date.today)
+      sleep 1
+      Employee.current.should eq [employee]
+    end
+
+    it "when end_date is time, current scope should include records that have ended" do
+      mood = Mood.create(:start_time => Time.now - 1.minute, :end_time => Time.now)
+      sleep 1
+      Mood.current.should be_empty
+    end
   end
 end
